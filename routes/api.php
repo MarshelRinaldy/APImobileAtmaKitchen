@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PesananTransaksiController;
+use App\Http\Controllers\DukproController;
 use App\Http\Resources\PesananTransaksiResources;
 use App\Models\Transaksi;
 
@@ -19,5 +20,8 @@ Route::get('/pesanan/{id}', [PesananTransaksiController::class, 'show']);
 Route::get('/pesanan/search/{name}/{id}', [PesananTransaksiController::class, 'showByNameProduk']);
 Route::get('/pesanan/pickup/{status}', [PesananTransaksiController::class, 'showByStatus']);
 Route::put('/pesanan/{id}', [PesananTransaksiController::class, 'updateStatus']);
+
+
+Route::apiResource('dukpro', DukproController::class);
 
 // Route::middleware('auth.basic')->get('/pesanan', [PesananTransaksiController::class, 'index']);
