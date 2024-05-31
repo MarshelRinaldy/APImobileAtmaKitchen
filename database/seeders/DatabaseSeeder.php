@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\DukPro;
+use App\Models\BahanBaku;
 
 class DatabaseSeeder extends Seeder
 {
@@ -56,7 +57,23 @@ class DatabaseSeeder extends Seeder
                 'image' => 'gambar_produk_1.jpg',
                 'kategori' => 'Kategori 1',
             ]);
-        
+
+            BahanBaku::factory()->create([
+                'nama_bahan_baku' => 'Tepung', 
+                'stok_bahan_baku' => 100, 
+                'satuan_bahan_baku' => 'Gram', 
+                'harga_bahan_baku' => '10000'
+
+            ]);
+
+            BahanBaku::factory()->create([
+                'nama_bahan_baku' => 'Telur', 
+                'stok_bahan_baku' => 100, 
+                'satuan_bahan_baku' => 'Butir', 
+                'harga_bahan_baku' => '15000'
+
+            ]);
+            
 
     }
 }
