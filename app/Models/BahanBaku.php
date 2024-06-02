@@ -14,7 +14,12 @@ class BahanBaku extends Model
 
     protected $fillable = ['nama_bahan_baku', 'stok_bahan_baku', 'satuan_bahan_baku', 'harga_bahan_baku'];
 
+    public function bahanBakuUsages()
+    {
+        return $this->hasMany(BahanBakuUsage::class);
+    }
 
+    // relasi lainnya
     public function products()
     {
         return $this->belongsToMany(BahanBaku::class, 'reseps', 'produk_id', 'bahan_baku_id')
@@ -23,15 +28,13 @@ class BahanBaku extends Model
             ->withTimestamps();
     }
 
-    public function catatBahanBaku(){
+    public function catatBahanBaku()
+    {
         return $this->hasMany(catatBB::class);
     }
 
-    // resep
     public function resep()
     {
         return $this->hasMany(Resep::class);
     }
-
 }
-

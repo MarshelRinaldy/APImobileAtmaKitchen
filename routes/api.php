@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BahanBakuUsageController;
 use App\Http\Controllers\PesananTransaksiController;
 use App\Http\Controllers\DukproController;
 use App\Http\Resources\PesananTransaksiResources;
@@ -20,6 +21,9 @@ Route::get('/pesanan/{id}', [PesananTransaksiController::class, 'show']);
 Route::get('/pesanan/search/{name}/{id}', [PesananTransaksiController::class, 'showByNameProduk']);
 Route::get('/pesanan/pickup/{status}', [PesananTransaksiController::class, 'showByStatus']);
 Route::put('/pesanan/{id}', [PesananTransaksiController::class, 'updateStatus']);
+
+// BahanBakuUsage
+Route::get('/bahanbakuusage/report/{start}/{end}', [BahanBakuUsageController::class, 'report']);
 
 
 Route::apiResource('dukpro', DukproController::class);
