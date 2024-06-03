@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BahanBakuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -23,5 +24,6 @@ Route::put('/pesanan/{id}', [PesananTransaksiController::class, 'updateStatus'])
 
 
 Route::apiResource('dukpro', DukproController::class);
+Route::apiResource('bahanbaku', BahanBakuController::class);
 
 // Route::middleware('auth.basic')->get('/pesanan', [PesananTransaksiController::class, 'index']);
