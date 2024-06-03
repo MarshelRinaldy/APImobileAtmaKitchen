@@ -75,19 +75,41 @@ class PesananTransaksiController extends Controller
         return new PesananTransaksiResources($pesanan);
     }
 
-    public function showByStatus(string $status)
+    
+    public function showByStatus(string $id, string $status = null)
     {
-        $transaction = DB::table('transaksis as a')
-            ->join('users as b', 'a.user_id', '=', 'b.id')
-            ->select('a.id', 'a.tanggal_transaksi', 'a.total_harga', 'a.status_transaksi', 'b.name')
-            ->where('a.status_transaksi', $status)
-            ->get();
+        $pesananQuery = Transaksi::with(['detailTransaksi.produk'])
+        ->where('user_id', $id);
 
-        if ($transaction->isEmpty()) {
+        if($status != null) {
+            $pesananQuery->where('status_transaksi', 'like', '%' . $status . '%');
+        }
+
+        $pesanan = $pesananQuery->get()->map(function ($transaksi) {
+            return [
+                'id' => $transaksi->id,
+                'no_transaksi' => $transaksi->no_transaksi,
+                'jumlah_transaksi' => $transaksi->jumlah_transaksi,
+                'biaya_ongkir' => $transaksi->biaya_ongkir,
+                'total_harga' => $transaksi->total_harga,
+                'status_transaksi' => $transaksi->status_transaksi,
+                'produk' => $transaksi->detailTransaksi->map(function ($detail) {
+                    return [
+                        'id' => $detail->produk->id,
+                        'nama_produk' => $detail->produk->nama,
+                        'deskripsi_produk' => $detail->produk->deskripsi,
+                        'jumlah_produk' => $detail->jumlah_produk,
+                        'harga' => $detail->produk->harga
+                    ];
+                })
+            ];
+        });
+
+        if ($pesanan->isEmpty()) {
             return response()->json(['status' => 404, 'message' => 'Pesanan tidak ditemukan'], 404);
         }
 
-        return new PesananTransaksiResources($transaction);
+        return new PesananTransaksiResources($pesanan);
     }
 
     public function updateStatus(Request $request, string $id)

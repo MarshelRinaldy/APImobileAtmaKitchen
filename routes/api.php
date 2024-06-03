@@ -18,7 +18,7 @@ Route::middleware('auth.basic')->group(function () {
 
 Route::get('/pesanan/{id}', [PesananTransaksiController::class, 'show']);
 Route::get('/pesanan/search/{name}/{id}', [PesananTransaksiController::class, 'showByNameProduk']);
-Route::get('/pesanan/pickup/{status}', [PesananTransaksiController::class, 'showByStatus']);
+Route::get('/pesanan/pickup/{id}/{status}', [PesananTransaksiController::class, 'showByStatus']);
 Route::put('/pesanan/{id}', [PesananTransaksiController::class, 'updateStatus']);
 
 
